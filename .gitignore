@@ -1,0 +1,7 @@
+.settings
+/target
+.classpath
+.project
+src/main/generated-sources
+src/main/xtend-gen/ar/carmenSanDiego
+src/test/generated-sources
