@@ -7,31 +7,34 @@ import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.api.annotation.Delete
 import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Body
-import ar.carmenSanDiego.model.Villano
+
 import org.uqbar.commons.model.UserException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
-import ar.carmenSanDiego.model.Pais
-import ar.carmenSanDiego.model.Mapamundi
-import ar.carmenSanDiego.model.Expedientes
-import ar.carmenSanDiego.model.Caso
 import java.util.ArrayList
 import ar.carmenSanDiego.model.PistaResponse
 import ar.carmenSanDiego.model.RandomExamples
 import ar.carmenSanDiego.model.EmitirOrdenRequest
 import ar.carmenSanDiego.model.ViajeRequest
+import ar.carmenSanDiego.model.ExpedientesRest
+import ar.carmenSanDiego.model.MapamundiRest
+import ar.carmenSanDiego.model.CasoRest
+import ar.carmenSanDiego.model.VillanoRest
+import ar.gaston.carmenSanDiego.Villano
+import ar.gaston.carmenSanDiego.Pais
+import ar.carmenSanDiego.model.PaisRest
 
 @Controller
 class CarmenSanDiegoRestAPI {
 	 extension JSONUtils = new JSONUtils
 	 
-	 Expedientes villanos
-	 Mapamundi paises
-	 ArrayList<Caso> casos = new ArrayList
-	 Caso casoElegidoRandom // se elige a IniciarElJuego
+	 ExpedientesRest villanos
+	 MapamundiRest paises
+	 ArrayList<CasoRest> casos = new ArrayList
+	 CasoRest casoElegidoRandom // se elige a IniciarElJuego
 	 ArrayList<EmitirOrdenRequest> OrdenDeArrestos = new ArrayList
 	
 	 
-	 new(Expedientes vil, Mapamundi p) {
+	 new(ExpedientesRest vil, MapamundiRest p) {
         this.villanos = vil
         this.paises = p
     } 
@@ -42,7 +45,7 @@ class CarmenSanDiegoRestAPI {
      * Atiende requests de la forma GET /villanos y GET /villanos?string=xxx.
      */
     @Get("/villanos")
-    def getLibros(String string) {
+    def getVillano(String string) {
         response.contentType = ContentType.APPLICATION_JSON
        	ok(this.villanos.searchVillanos(string).toJson)
     }
@@ -75,7 +78,7 @@ class CarmenSanDiegoRestAPI {
      * Atiende requests de la forma DELETE /villanos/7.
      */
     @Delete('/villanos/:id')
-    def deleteLibroById() {
+    def deleteVillanoById() {
         response.contentType = ContentType.APPLICATION_JSON
         try {
             this.villanos.eliminarVillano(Integer.valueOf(id))
@@ -135,7 +138,7 @@ class CarmenSanDiegoRestAPI {
     def getPaisById() {
         response.contentType = ContentType.APPLICATION_JSON
         try {        	
-            var pais = this.paises.getPais(Integer.valueOf(id))
+            var pais = this.paises.getPaisCompleto(Integer.valueOf(id))
             if (pais == null) {
             	notFound(getErrorJson("No existe Pais con ese id"))
             } else {
@@ -193,7 +196,7 @@ class CarmenSanDiegoRestAPI {
 		casos.findFirst[ it.getId == id ]
 	}
 	
-	def agregarCaso(Caso cas){
+	def agregarCaso(CasoRest cas){
 		casos.add(cas)
 	}
 	 ///pistaDelLugar/?id=xxx?lugar=xxx"
@@ -205,7 +208,7 @@ class CarmenSanDiegoRestAPI {
             if (casoElegidoRandom == null) {
             	notFound(getErrorJson("No se inicio el juego,ejecute iniciarJuego"))
             } else {
-            	val String pistaDada = this.casoElegidoRandom.pais.precesarLugar(lugar)
+            	val String pistaDada = this.casoElegidoRandom.pais.procesarLugar(lugar)
             	 val PistaResponse pista = new PistaResponse( pistaDada)
             	ok(pista.toJson)
             }

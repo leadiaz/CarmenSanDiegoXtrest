@@ -3,7 +3,7 @@ package ar.carmenSanDiego.model.lugaresDeInteres
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
- class LugarDeInteres {
+ class LugarDeInteresRest {
 	String nombrelugar
 	
 	new (String n){

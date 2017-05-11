@@ -2,40 +2,43 @@ package ar.carmenSanDiego.app
 
 import org.uqbar.xtrest.api.XTRest
 import ar.carmenSanDiego.rest.CarmenSanDiegoRestAPI
-import ar.carmenSanDiego.model.Villano
-import ar.carmenSanDiego.model.Pais
-import ar.carmenSanDiego.model.Expedientes
-import ar.carmenSanDiego.model.Mapamundi
-import ar.carmenSanDiego.model.Caso
-import ar.carmenSanDiego.model.lugaresDeInteres.LugarDeInteres
+import ar.carmenSanDiego.model.ExpedientesRest
+import ar.gaston.carmenSanDiego.Villano
+import ar.carmenSanDiego.model.MapamundiRest
+import ar.gaston.carmenSanDiego.Pais
+import ar.gaston.carmenSanDiego.LugarDeInteres
+import ar.gaston.carmenSanDiego.Embajada
+import ar.gaston.carmenSanDiego.Club
+import ar.gaston.carmenSanDiego.Biblioteca
+import ar.carmenSanDiego.model.CasoRest
 
 class CarmenSanDiegoApp {
 	
 		def static void main(String[] args) {
-		var villanos = new Expedientes
-		villanos.setVillano(new Villano(5, "Carlos","Masculino"))
-		villanos.setVillano(new Villano(7, "El Aleph","Masculino"))
-		villanos.setVillano(new Villano(11, "Carmen San Diego","Femenino"))
-		villanos.setVillano(new Villano(13, "Igor Brodie","Masculino"))
-		villanos.setVillano(new Villano(17, "Juan Perez","Masculino"))
+		var expediente = new ExpedientesRest
+		expediente.setVillano(new Villano(5, "Carlos","Masculino"))
+		expediente.setVillano(new Villano(7, "El Aleph","Masculino"))
+		expediente.setVillano(new Villano(11, "Carmen San Diego","Femenino"))
+		expediente.setVillano(new Villano(13, "Igor Brodie","Masculino"))
+		expediente.setVillano(new Villano(17, "Juan Perez","Masculino"))
 		
-		var paises = new Mapamundi
-		var argentina = new Pais(5, "Argentina")
-		argentina.agregarLugarDeInteres(new LugarDeInteres("Embajada"))
-		argentina.agregarLugarDeInteres(new LugarDeInteres("Club"))
-		argentina.agregarLugarDeInteres(new LugarDeInteres("Biblioteca"))
-		var peru = new Pais(9, "Peru")
-		var españa = new Pais(11, "España")
-		var bolivia = new Pais(13, "Bolivia")
-		var francia = new Pais(15, "Francia")
-		paises.setPais(argentina)
-		paises.setPais(peru)
-		paises.setPais(españa)
-		paises.setPais(bolivia)
-		paises.setPais(francia)
+		var mapamundi = new MapamundiRest
+		var argentina = new Pais("Argentina", 5)
+		argentina.agregarLugarDeInteres(new Embajada)
+		argentina.agregarLugarDeInteres(new Club)
+		argentina.agregarLugarDeInteres(new Biblioteca)
+		var peru = new Pais("Peru",9)
+		var españa = new Pais("España", 11)
+		var bolivia = new Pais("Bolivia",13)
+		var francia = new Pais("Francia",15)
+		mapamundi.setPais(argentina)
+		mapamundi.setPais(peru)
+		mapamundi.setPais(españa)
+		mapamundi.setPais(bolivia)
+		mapamundi.setPais(francia)
 		
-		var caso1 = new Caso(5,argentina)
-		var carmenRestAPI= new CarmenSanDiegoRestAPI(villanos,paises )
+		var caso1 = new CasoRest(5,argentina)
+		var carmenRestAPI= new CarmenSanDiegoRestAPI(expediente,mapamundi)
 		carmenRestAPI.agregarCaso(caso1) 
         XTRest.startInstance(carmenRestAPI, 9001)
     }}

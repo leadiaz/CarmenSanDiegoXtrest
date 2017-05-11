@@ -3,9 +3,10 @@ package ar.carmenSanDiego.model
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.gaston.carmenSanDiego.*
 
 @Accessors
-class Caso {
+class CasoRest {
 	int id
 	Pais pais
 	List<String> paisesVisitados = new ArrayList<String>();
@@ -29,5 +30,4 @@ class Caso {
 		}
 		pais = p
 	}
-	
 }

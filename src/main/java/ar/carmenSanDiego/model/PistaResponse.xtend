@@ -1,5 +1,8 @@
 package ar.carmenSanDiego.model
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class PistaResponse {
 	String pista
 	
@@ -8,7 +11,7 @@ class PistaResponse {
 	}
 	
 	new(String pis){
-		pista = pis
+		this.pista = pis
 	} 
 		 
 	/*def void searchPista(Caso caso, String lugar) {
