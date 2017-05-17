@@ -22,6 +22,7 @@ import ar.carmenSanDiego.model.VillanoRest
 import ar.gaston.carmenSanDiego.Villano
 import ar.gaston.carmenSanDiego.Pais
 import ar.carmenSanDiego.model.PaisRest
+import ar.carmenSanDiego.model.PaisCompletoRest
 
 @Controller
 class CarmenSanDiegoRestAPI {
@@ -138,7 +139,7 @@ class CarmenSanDiegoRestAPI {
     def getPaisById() {
         response.contentType = ContentType.APPLICATION_JSON
         try {        	
-            var pais = this.paises.getPaisCompleto(Integer.valueOf(id))
+            var pais = this.paises.getPaisSimple(Integer.valueOf(id))
             if (pais == null) {
             	notFound(getErrorJson("No existe Pais con ese id"))
             } else {
@@ -208,9 +209,10 @@ class CarmenSanDiegoRestAPI {
             if (casoElegidoRandom == null) {
             	notFound(getErrorJson("No se inicio el juego,ejecute iniciarJuego"))
             } else {
-            	val String pistaDada = this.casoElegidoRandom.pais.procesarLugar(lugar)
-            	 val PistaResponse pista = new PistaResponse( pistaDada)
-            	ok(pista.toJson)
+            	val pais = new PaisCompletoRest(paises.getPais(casoElegidoRandom.pais.id))
+            	val String pistaDada = pais.procesarLugar(lugar)
+            	 
+            	ok(pistaDada.toJson)
             }
         }
       /*   catch (NumberFormatException ex) {

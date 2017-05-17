@@ -19,8 +19,21 @@ class MapamundiRest {
 		(mapamundi.getPais(id))
 	}
 	
-		def getPaisCompleto(int id) {
+	def getPaisSimple(int id){
+		if (mapamundi.getPais(id) == null){
+	    	return null
+	    }else{
+		new PaisRest(mapamundi.getPais(id))
+		}
+	}
+	
+	def getPaisCompleto(int id) {
+	    if (mapamundi.getPais(id) == null){
+	    	return null
+	    }else{
 		new PaisCompletoRest(mapamundi.getPais(id))
+		
+		}
 	}
 	
 	

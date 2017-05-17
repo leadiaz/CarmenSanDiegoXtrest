@@ -8,13 +8,13 @@ import ar.gaston.carmenSanDiego.*
 @Accessors
 class CasoRest {
 	int id
-	Pais pais
+	PaisRest pais
 	List<String> paisesVisitados = new ArrayList<String>();
 	List<String> paisesFallidos = new ArrayList<String>();  
 	
 	new(int i, Pais p){
 		id = i
-		pais = p
+		pais = new PaisRest(p)
 	}
 	def getId (){
 		id
@@ -25,9 +25,9 @@ class CasoRest {
 	}
 	
 	def void setearPaisNuevo(Pais p) {
-		if(!paisesVisitados.contains(pais.nombrePais)){
-		paisesVisitados.add(pais.nombrePais)
+		if(!paisesVisitados.contains(pais.nombre)){
+		paisesVisitados.add(pais.nombre)
 		}
-		pais = p
+		pais =  new PaisRest(p)
 	}
 }
