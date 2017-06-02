@@ -1,0 +1,131 @@
+
+<div ng-controller="TodosLosVillanosCtrl as villanosT">
+	<div class="container">
+	 	<h1>Expedientes </h1>
+	</div>
+	<div class="container">
+ 		<form class="col-sm-4">
+			<div class ="well well-lg">	
+     		 <table class="table table-striped table-hover">
+      		  <thead>	
+       			  <tr>
+          		   <th>Villano</th>
+           			  <th></th>
+           			  <th></th>
+       			  </tr>
+       		  </thead>
+        	 <tbody>
+       			 <!-- <tr ng-repeat="pais in paisesT.paises ">-->
+        		<tr data-ng-repeat="villano in villanosT.villanos"> 
+          		  <td>{{villano.nombre}}</td>
+           		  <td>
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteVillano(villano)">
+            			<span class="glyphicon glyphicon-remove"></span>
+          			</button>
+          		  </td>
+          	 	  <td>
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.seleccionarVillano(villano)">
+            			<span class="glyphicon glyphicon-pencil"></span>
+          			</button>
+          		 </td>
+        	  	 </tr>
+        		</tbody>
+    	 	 </table>
+    	 	 <button type="submit" class="btn btn-primary"
+			data-ng-click="villanosT.nuevo()">Nuevo</button>
+    		</div>
+    	</form>
+    	<form class="col-sm-4" name="convertirForm" role="form">
+  		<div class="well well-lg">
+ 			<div class="form-group">
+ 				<label for="nombre">Nombre:</label>
+				<input 
+					name="Nombre"
+					class="form-control" 
+					ng-model="villanosT.villanoSeleccionado.nombre"
+					required="true"
+					placeholder="Ingrese nombre del villano"
+					autofocus="autofocus">
+			</div>
+			<div>
+			<label for="nombre">Sexo:</label>
+			<br>
+				<input type="radio" ng-model="villanosT.villanoSeleccionado.sexo" name="sexo" value="Masculino">Masculino</input>
+				<input type="radio" ng-model="villanosT.villanoSeleccionado.sexo" name="sexo" value="Femenino">Femenino</input>
+			</div>	
+			<br>	
+			<div class ="well well-lg">	
+     		 <table class="table table-striped table-hover">
+      		  <thead>	
+       			  <tr>
+          		   <th>Seña</th>
+           			  <th></th>
+       			  </tr>
+       		  </thead>
+        	 <tbody>
+        		<tr data-ng-repeat="senhia in villanosT.villanoSeleccionado.senhasParticulares"> 
+          		  <td>{{senhia}}</td>
+           		  <td>
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteSenhia(senhia)">
+            			<span class="glyphicon glyphicon-remove"></span>
+          			</button>
+          		  </td>
+        	  	 </tr>
+        		</tbody>
+    	 	 </table>
+    	 	 </div>	
+    	 	 <!-- ng-model="villanosT.seniaAagregar" -->
+    	 	  <div class="input-group">
+    	 	  <!-- required="true" -->
+						<input 
+							type="text"
+							ng-model="villanosT.senhiaAAgregar"
+							class="form-control" 
+							placeholder="Ingrese la seña a agregar"
+							autofocus="autofocus">
+							 <span class="input-group-btn">
+							<button type="button" class="btn btn-default " ng-click="villanosT.agregarsenhia()">
+            					<span class="glyphicon glyphicon-plus"></span>
+          					</button>
+          					</span>
+			</div>
+			<br>
+			<div class ="well well-lg">	
+     		 <table class="table table-striped table-hover">
+      		  <thead>	
+       			  <tr>
+          		   <th>Hobbies</th>
+           			  <th></th>
+       			  </tr>
+       		  </thead>
+        	 <tbody>
+        		<tr data-ng-repeat="hobbie in villanosT.villanoSeleccionado.hobbies"> 
+          		  <td>{{hobbie}}</td>
+           		  <td>
+            		<button type="submit" class="btn btn-default btn-sm" ng-click="villanosT.deleteHobbie(hobbie)">
+            			<span class="glyphicon glyphicon-remove"></span>
+          			</button>
+          		  </td>
+        	  	 </tr>
+        		</tbody>
+    	 	 </table>
+    	 	 </div>
+    	 	  <div class="input-group">
+						<input 
+							type="text"
+							class="form-control" 
+							ng-model="villanosT.hobbieAagregar"
+							placeholder="Ingrese el hobbie a agregar"
+							autofocus="autofocus">
+							<span class="input-group-btn">
+							<button  type="button" class="btn btn-default " ng-click="villanosT.agregarhobbie()">
+            					<span class="glyphicon glyphicon-plus"></span>
+          					</button>
+          					</span>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-primary"
+			data-ng-click="villanosT.aceptar()">Aceptar</button> 			
+		</div>    
+		</form>
+ </div>
