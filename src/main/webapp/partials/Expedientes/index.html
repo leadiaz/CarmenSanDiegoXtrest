@@ -31,9 +31,24 @@
         	  	 </tr>
         		</tbody>
     	 	 </table>
-    	 	 <button type="submit" class="btn btn-primary"
-			data-ng-click="villanosT.nuevo()">Nuevo</button>
+    	 	 <!--  <button type="submit" class="btn btn-primary"
+			data-ng-click="villanosT.nuevo()">Nuevo</button>-->
     		</div>
+    		<!-- Agregar -->
+		<div class="well well-lg">
+			<h2>Agregar Villano</h2>
+			<div>
+			  	<fieldset>
+				    <div class="form-group">
+			    	  	<label for="titulo">Nombre Del Villano</label>
+			      		<input data-ng-model="villanosT.nuevoVillano.nombre" type="text" id="nombre" class="form-control" placeholder="Carlos ov">
+			    	</div>
+			    	<button type="submit" class="btn btn-primary" data-ng-click="villanosT.agregarVillano()">Agregar Villano</button>
+			  	</fieldset>
+			</div>
+		</div>
+		
+		
     	</form>
     	<form class="col-sm-4" name="convertirForm" role="form">
   		<div class="well well-lg">

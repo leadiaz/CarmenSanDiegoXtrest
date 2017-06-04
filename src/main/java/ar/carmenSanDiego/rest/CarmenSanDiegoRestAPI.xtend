@@ -96,9 +96,11 @@ class CarmenSanDiegoRestAPI {
     def createVillano(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
-	        val Villano vil = body.fromJson(Villano)
+	        //val Villano vil = body.fromJson(Villano)
+	        var nuevo = body.fromJson(Villano)
+	        val Villano nuevoV = new Villano(this.villanos.villanos.size +1, nuevo.nombre);
 	        try {
-				this.villanos.setVillano(vil)
+				this.villanos.setVillano(nuevoV)
 				ok()	        	
 	        } 
 	        catch (UserException exception) {
@@ -110,11 +112,15 @@ class CarmenSanDiegoRestAPI {
         }
     }
     
-    @Put("/villanos")
+    @Put("/villanos/:id")
     def modificarVillano(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
 	        val Villano vil = body.fromJson(Villano)
+	        if (Integer.parseInt(id) != vil.id) {
+			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
+			 }
+		
 	        try {
 				this.villanos.setVillano(vil)
 				ok()	        	
@@ -192,7 +198,30 @@ class CarmenSanDiegoRestAPI {
     def createPais(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
+	        //val Pais p = body.fromJson(Pais)
+	       	var nuevo = body.fromJson(Pais)
+	        val Pais nuevoP = new Pais(this.paises.paises.size +1, nuevo.nombrePais);
+	        try {
+				this.paises.setPais(nuevoP)
+				ok()	        	
+	        } 
+	        catch (UserException exception) {
+	        	badRequest(getErrorJson(exception.message))
+	        }
+        } 
+        catch (UnrecognizedPropertyException exception) {
+        	badRequest(getErrorJson("El body debe ser un Pais"))
+        }
+    }
+    
+    @Put("/paises/:id")
+    def updatePais(@Body String body) {
+        response.contentType = ContentType.APPLICATION_JSON
+        try {
 	        val Pais p = body.fromJson(Pais)
+	       	 if (Integer.parseInt(id) != p.id) {
+			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
+			 }
 	        try {
 				this.paises.setPais(p)
 				ok()	        	
@@ -204,7 +233,7 @@ class CarmenSanDiegoRestAPI {
         catch (UnrecognizedPropertyException exception) {
         	badRequest(getErrorJson("El body debe ser un Pais"))
         }
-    }
+    } 
     
    /////////////////////////////////////////////////////////////////////////
    

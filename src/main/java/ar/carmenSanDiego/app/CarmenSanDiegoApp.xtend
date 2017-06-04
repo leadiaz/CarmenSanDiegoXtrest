@@ -13,11 +13,11 @@ class CarmenSanDiegoApp {
 	
 		def static void main(String[] args) {
 		var villanos = new Expedientes
-		villanos.setVillano(new Villano(5, "Carlos","Masculino"))
-		villanos.setVillano(new Villano(7, "El Aleph","Masculino"))
-		villanos.setVillano(new Villano(11, "Carmen San Diego","Femenino"))
-		villanos.setVillano(new Villano(13, "Igor Brodie","Masculino"))
-		villanos.setVillano(new Villano(17, "Juan Perez","Masculino"))
+		villanos.setVillano(new Villano(1, "Carlos","Masculino"))
+		villanos.setVillano(new Villano(2, "El Aleph","Masculino"))
+		villanos.setVillano(new Villano(3, "Carmen San Diego","Femenino"))
+		villanos.setVillano(new Villano(4, "Igor Brodie","Masculino"))
+		villanos.setVillano(new Villano(5, "Juan Perez","Masculino"))
 		
 		var paises = new Mapamundi
 		var argentina = new Pais(5, "Argentina")
