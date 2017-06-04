@@ -66,32 +66,44 @@ carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function (/*$scope*/$resour
         });
 	}
 	this.nuevo = function(){
-		this.villanoSeleccionado = {"id":this.villanos.length + 1,"nombre":"","senhias":[],"hobbies":[]};
+		console.log("Seleccionando es nuevo" );
+		this.villanoSeleccionado = {
+				"id":this.villanos.length + 20,"nombre":"","sexo":"Masculino","senhasParticulares":[],"hobbies":[]};
 	}
 		
 
 	
 	this.aceptar = function(){
-		var villanoFind = this.villanos.find(
+		/*var villanoFind = this.villanos.find(
 				function(it) {
 					return it.id == self.villanoSeleccionado.id;
 					});
 		if(villanoFind==  null){
 			console.log("Seleccionando es nuevo" );
-			/*this.villanos.push(this.villanoSeleccionado);*/
+			/*this.villanos.push(this.villanoSeleccionado);
 			Villanos.save(this.villanoSeleccionado, function(data) {
 	            self.actualizarLista();
 	            self.villanoSeleccionado = null;
 	            alert("Guardado Re piola wachin")
 	        });
-		}else{
+		}else{*/
+			console.log("Seleccionando " );
 			Villanos.update(this.villanoSeleccionado,function() {
             self.actualizarLista();
             self.villanoSeleccionado = null;
             });	
 			console.log("Seleccionando ya existe" );
 			alert("Guardado Re piola wachin") }
-	}
+	
+	//this.nuevoVillano =  {}  
+	// AGREGAR
+    this.agregarVillano = function() {
+        Villanos.save(this.nuevoVillano, function() {
+            self.actualizarLista();
+            self.nuevoVillano = null;
+        });
+        alert("Guardado Nuevo Villano")
+    };
 	
 	/*this.senhia = function(){
 		this.senhiaAAgregar;

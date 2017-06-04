@@ -1,5 +1,5 @@
 
-app.factory('paises', function($resource) {
+carmenSanDiegoApp.factory('Paises', function($resource) {
     return $resource('/paises/:id', {'id': '@id'}, {
     	'query': { method: 'GET', isArray: true},
         'update': { method: 'PUT' },

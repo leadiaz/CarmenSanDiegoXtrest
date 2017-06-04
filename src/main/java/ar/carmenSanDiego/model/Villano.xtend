@@ -24,6 +24,11 @@ class Villano {
     	sexo = s
     }
     
+       new(int ids,String n){
+    	id = ids
+    	nombre = n
+    }
+    
     def void agregarSeña(String seña){
     	
     	senhasParticulares.add(seña);
