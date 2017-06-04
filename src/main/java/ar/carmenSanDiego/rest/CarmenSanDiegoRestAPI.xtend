@@ -19,6 +19,7 @@ import ar.carmenSanDiego.model.PistaResponse
 import ar.carmenSanDiego.model.RandomExamples
 import ar.carmenSanDiego.model.EmitirOrdenRequest
 import ar.carmenSanDiego.model.ViajeRequest
+import org.uqbar.xtrest.api.annotation.Put
 
 @Controller
 class CarmenSanDiegoRestAPI {
@@ -93,6 +94,24 @@ class CarmenSanDiegoRestAPI {
      */
     @Post("/villanos")
     def createVillano(@Body String body) {
+        response.contentType = ContentType.APPLICATION_JSON
+        try {
+	        val Villano vil = body.fromJson(Villano)
+	        try {
+				this.villanos.setVillano(vil)
+				ok()	        	
+	        } 
+	        catch (UserException exception) {
+	        	badRequest(getErrorJson(exception.message))
+	        }
+        } 
+        catch (UnrecognizedPropertyException exception) {
+        	badRequest(getErrorJson("El body debe ser un Villano"))
+        }
+    }
+    
+    @Put("/villanos")
+    def modificarVillano(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
 	        val Villano vil = body.fromJson(Villano)

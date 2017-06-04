@@ -9,7 +9,7 @@ class Villano {
 	int id
 	String nombre
 	String sexo
-    List <String> señasParticulares = new ArrayList<String>()
+    List <String> senhasParticulares = new ArrayList<String>()
     List<String> hobbies = new ArrayList<String>()
    
    
@@ -26,11 +26,11 @@ class Villano {
     
     def void agregarSeña(String seña){
     	
-    	señasParticulares.add(seña);
+    	senhasParticulares.add(seña);
     }
     
     def void sacarSeña(String seña){
-    	señasParticulares.remove(seña)
+    	senhasParticulares.remove(seña)
     }
     
     def void agregarHobbie (String h){
