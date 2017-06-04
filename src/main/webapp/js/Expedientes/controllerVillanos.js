@@ -66,7 +66,9 @@ carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function (/*$scope*/$resour
         });
 	}
 	this.nuevo = function(){
-		this.villanoSeleccionado = {"id":this.villanos.length + 1,"nombre":"","senhias":[],"hobbies":[]};
+        var mensaje = "en el panel lateral carge al nuevo villano";
+
+		/*this.villanoSeleccionado = {"id":this.villanos.length + 1,"nombre":"","senhias":[],"hobbies":[]};*/
 	}
 		
 
