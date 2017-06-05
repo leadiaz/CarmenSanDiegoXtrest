@@ -23,6 +23,7 @@ import ar.gaston.carmenSanDiego.Villano
 import ar.gaston.carmenSanDiego.Pais
 import ar.carmenSanDiego.model.PaisRest
 import ar.carmenSanDiego.model.PaisCompletoRest
+import org.uqbar.xtrest.api.annotation.Put
 
 @Controller
 class CarmenSanDiegoRestAPI {
@@ -112,6 +113,30 @@ class CarmenSanDiegoRestAPI {
         	badRequest(getErrorJson("El body debe ser un Villano"))
         }
     }
+    @Put("/villanos/:id")
+    def modificarVillano(@Body String body) {
+        response.contentType = ContentType.APPLICATION_JSON
+        try {
+	        val Villano vil = body.fromJson(Villano)
+	        if (Integer.parseInt(id) != vil.id) {
+			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
+			 }
+		
+	        try {
+				this.villanos.setVillano(vil)
+				ok()	        	
+	        } 
+	        catch (UserException exception) {
+	        	badRequest(getErrorJson(exception.message))
+	        }
+        
+        }
+        catch (UnrecognizedPropertyException exception) {
+        	badRequest(getErrorJson("El body debe ser un Villano"))
+        	}
+    	}
+        
+        
     
     private def getErrorJson(String message) {
         '{ "error": "' + message + '" }'
@@ -190,6 +215,27 @@ class CarmenSanDiegoRestAPI {
         	badRequest(getErrorJson("El body debe ser un Pais"))
         }
     }
+
+    @Put("/paises/:id")
+    def updatePais(@Body String body) {
+        response.contentType = ContentType.APPLICATION_JSON
+        try {
+	        val Pais p = body.fromJson(Pais)
+	       	 if (Integer.parseInt(id) != p.id) {
+			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
+			 }
+	        try {
+				this.paises.setPais(p)
+				ok()	        	
+	        } 
+	        catch (UserException exception) {
+	        	badRequest(getErrorJson(exception.message))
+	        }
+        } 
+        catch (UnrecognizedPropertyException exception) {
+        	badRequest(getErrorJson("El body debe ser un Pais"))
+        }
+    } 
     
    /////////////////////////////////////////////////////////////////////////
    

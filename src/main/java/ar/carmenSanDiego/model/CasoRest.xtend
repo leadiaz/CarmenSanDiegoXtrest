@@ -12,14 +12,18 @@ class CasoRest {
 	List<String> paisesVisitados = new ArrayList<String>();
 	List<String> paisesFallidos = new ArrayList<String>();  
 	
+	new (Caso c){
+		this.id = c.id
+		this.pais = new PaisRest(c.paisDelRobo)
+	}
 	new(int i, Pais p){
 		id = i
 		pais = new PaisRest(p)
 	}
-	def getId (){
-		id
-	}
-	
+//	def getId (){
+//		id
+//	}
+//	
 	def getPais(){
 		pais
 	}

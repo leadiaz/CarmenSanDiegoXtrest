@@ -11,16 +11,24 @@ import ar.gaston.carmenSanDiego.Embajada
 import ar.gaston.carmenSanDiego.Club
 import ar.gaston.carmenSanDiego.Biblioteca
 import ar.carmenSanDiego.model.CasoRest
+import ar.gaston.carmenSanDiego.Caso
+import Extra.DummyData
+import AplicationModel.ExpedientesAppModel
+import AplicationModel.Mapamundi
 
 class CarmenSanDiegoApp {
 	
 		def static void main(String[] args) {
-		var expediente = new ExpedientesRest
-		expediente.setVillano(new Villano(5, "Carlos","Masculino"))
-		expediente.setVillano(new Villano(7, "El Aleph","Masculino"))
-		expediente.setVillano(new Villano(11, "Carmen San Diego","Femenino"))
-		expediente.setVillano(new Villano(13, "Igor Brodie","Masculino"))
-		expediente.setVillano(new Villano(17, "Juan Perez","Masculino"))
+		var exped = new ExpedientesAppModel()
+		exped.agregarNuevoVillano(new Villano(5, "Carlos","Masculino"))
+		exped.agregarNuevoVillano(new Villano(7, "El Aleph","Masculino"))
+		exped.agregarNuevoVillano(new Villano(13, "Igor Brodie","Masculino"))
+		exped.agregarNuevoVillano(new Villano(11, "Carmen San Diego","Femenino"))
+		exped.agregarNuevoVillano(new Villano(17, "Juan Perez","Masculino"))
+		var expediente = new ExpedientesRest(exped)
+		
+//		var mapa =new Mapamundi()
+//		mapa.agregarNuevoPais()
 		
 		var mapamundi = new MapamundiRest
 		var argentina = new Pais("Argentina", 5)
@@ -37,7 +45,8 @@ class CarmenSanDiegoApp {
 		mapamundi.setPais(bolivia)
 		mapamundi.setPais(francia)
 		
-		var caso1 = new CasoRest(5,argentina)
+		var caso = new DummyData().crearCaso("El gran robo", exped.getVillano(11))
+		var caso1 = new CasoRest(caso)
 		var carmenRestAPI= new CarmenSanDiegoRestAPI(expediente,mapamundi)
 		carmenRestAPI.agregarCaso(caso1) 
         XTRest.startInstance(carmenRestAPI, 9001)

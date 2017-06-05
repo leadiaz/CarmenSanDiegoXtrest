@@ -10,6 +10,10 @@ import ar.gaston.carmenSanDiego.*
 class ExpedientesRest {
 	var ExpedientesAppModel expediente = new ExpedientesAppModel
 	
+	new(ExpedientesAppModel model) {
+		expediente =  model
+	}
+	
 	
 	def setVillano(Villano vil) {
 		

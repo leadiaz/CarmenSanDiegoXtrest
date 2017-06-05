@@ -1,0 +1,90 @@
+
+<div ng-controller="TodosLospaisesConexionesYVillanosCtrl as casoC">
+	<div class="container">
+	 	<h1>Juego </h1>
+	</div>
+	<div class="container">
+		<p class="lead" >Estan En :{{casoC.caso.pais.nombrePais}} <i> Antes En:{{casoC.nombrePaisDondeEstuvoElVillano}}</i></p>				
+	</div>
+	<form class="col-sm-4">
+			
+		<div class ="well well-lg">
+				<p class="lead" >Viajar A: {{casoC.paisAViajar.nombrePais}}</p>	
+			<button type="submit" class="btn btn-primary"
+				data-ng-click="casoC.viajar()">Viajar
+			</button>
+			<br>			
+			<div class ="well well-lg">
+				
+     		 <table class="table table-striped table-hover">
+      		  <thead>	
+       			  <tr>
+          		   <th>Paises Posibles</th>
+           			  <th></th>
+       			  </tr>
+       		  </thead>
+        	 <tbody>
+       			 <!-- <tr ng-repeat="pais in paisesT.paises ">-->
+        		<tr data-ng-repeat="pais in casoC.caso.pais.paisConexiones"> 
+          		  <td>{{pais.nombrePais}}</td>
+           		  <td>
+   				    <button type="submit" class="btn btn-default btn-sm" ng-click="casoC.eligirPaisAViajar(pais)">
+            			<span class="glyphicon glyphicon-check"></span>
+          			</button>
+          		  </td>
+        	  	 </tr>
+        		</tbody>
+    	 	 </table>
+    		</div>
+    		</div>
+    					<div class ="well well-lg">	
+     		 <table class="table table-striped table-hover">
+      		  <thead>	
+       			  <tr>
+          		   <th>Paises Fallidos</th>
+           			  <th></th>
+       			  </tr>
+       		  </thead>
+        	 <tbody>
+       			 <!-- <tr ng-repeat="pais in paisesT.paises ">-->
+        		<tr data-ng-repeat="paises in casoC.paisesfallidos"> 
+          		  <td>{{paises.nombre}}</td>
+        	  	 </tr>
+        		</tbody>
+    	 	 </table>
+    		</div>
+    	</form>
+    	<form class="col-sm-5">
+    		<div class ="well well-lg">
+    		
+    			<div class="btn-group btn-group-lg" role="group" >
+            <div ng-repeat="lugar in casoC.caso.pais.lugaresDeInteres"> 
+               <button type="button" class="btn btn-default"
+  				      	data-ng-click="casoC.devolverPista(lugar)">{{lugar}}</button>
+               </div>
+				</div>
+    		</div>
+    		<div class ="well well-lg">
+    			<label for="titulo">Visitando:{{casoC.lugarVisitado}}</label>
+				<h1 class="lead">{{casoC.pistaRequest.pista}}</h1>
+					
+    		</div>
+    		
+    		<div class ="well well-lg">
+    			<h1> Orden De Arresto:</h1>
+				<p class="lead" >Emitida Contra: {{casoC.villanoAArrestar.nombre}}</p>
+				<select name="mySelectorDevillanos" 
+       					 id="mySelect" 
+       					 class="form-control"
+       					 ng-options="villano.nombre for villano in casoC.villanos track by villano.id"
+     					 ng-model="casoC.selectedVillanoAArrestar" >
+     		 			 <option value=""selected>Elige el Villano a arrestar </option></select>
+    					<span class="input-group-btn">
+       					</button>
+        				</span>
+      			 <br>
+      			<button type="button" class="btn btn-default"
+  					data-ng-click="casoC.generearOrdenDeArresto()">Pedir Orden De Arresto</button>	
+    		</div>
+    	</form>
+</div>

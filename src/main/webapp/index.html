@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es" ng-app="carmenSanDiegoApp">
+
+<head>
+  <meta charset="utf-8">
+  <title>CarmenSanDiego - Routing</title>
+  <link rel="stylesheet" href="css/app.css"/>
+
+  <!-- JQUERY -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- ANGULAR  -->
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <!-- UNDERSCORE -->
+  <script src="node_modules/underscore/underscore-min.js"></script>
+    <!-- BOOTBOX (dialogos de confirmacion) http://bootboxjs.com/ -->
+  <script src="node_modules/bootbox/bootbox.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>
+      <a ui-sref="home">CarmenSanDiego </a>-
+      <small> Menu De Acciones</small>
+    </h1>
+    <ul class="nav nav-pills">
+        <li role="navegacion"><a ui-sref="juego">InicioDeJuego</a></li>
+        <li role="navegacion"><a ui-sref="expedientes">Expedientes</a></li>
+        <li role="navegacion"><a ui-sref="mapamundi">Mapamundi</a></li>
+    </ul>
+  </div>
+
+  <div class="well-lg">
+    <div ui-view></div>
+  </div>
+
+</div>
+
+<!-- nuestra aplicacion js -->
+<script src="js/app.js"></script>
+<script src="js/Expedientes/controllerVillanos.js"></script>
+<script src="js/Expedientes/services.js"></script>
+<script src="js/Mapamundi/controllerPaises.js"></script>
+<script src="js/Mapamundi/service.js"></script>
+ <script src="js/InicioDeJuego/controllerJuego.js"></script>
+ <script src="js/InicioDeJuego/serviceJuego.js"></script>
+
+ <script src="js/route.js"></script>
+</body>
+</html>

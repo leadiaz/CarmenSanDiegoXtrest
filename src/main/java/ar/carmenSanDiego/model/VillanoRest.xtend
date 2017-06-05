@@ -7,16 +7,21 @@ import ar.gaston.carmenSanDiego.Villano
 
 @Accessors
 class VillanoRest {
-	var Villano villano
-   
+	int id 
+	String nombre 
+	String sexo
+	List <String> senhasParticulares = new ArrayList<String>()
+    List<String> hobbies = new ArrayList<String>()
+	   
      new() {
 
 	} 	
 	new(Villano villano) {
-		this.villano = villano
+		this.id = villano.id
+		this.nombre = villano.nombre
+		this.sexo = villano.sexo
+		this.senhasParticulares = villano.señasParticulares
+		this.hobbies = villano.hobbies
+		
 	}	
-	def getId() {
-		villano.getId
-	}
-	
 }
