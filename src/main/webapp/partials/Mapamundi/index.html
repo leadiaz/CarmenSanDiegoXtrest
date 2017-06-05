@@ -113,7 +113,7 @@
          </thead>
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
-        <tr data-ng-repeat="paisConexion in paisesT.paisSeleccionado.paisConexiones">
+          <tr data-ng-repeat="paisConexion in paisesT.paisSeleccionado.paisConexiones">
             <td>{{paisConexion.nombrePais}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deleteConexion(paisConexion)">
@@ -143,14 +143,14 @@
        	<table class="table table-striped table-hover">
         <thead>	
          <tr>
-             <th>Lugares de Interés</th>
+             <th>Lugares de Interes</th>
              <th></th>
          </tr>
          </thead>
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
         <tr data-ng-repeat="lugar in paisesT.paisSeleccionado.lugaresDeInteres">
-            <td>{{lugar}}</td>
+            <td>{{lugar.nombrelugar}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deletelugar(lugar)">
             			<span class="glyphicon glyphicon-remove"></span>
@@ -176,9 +176,10 @@
         </span>
        </div>
        <br> 
-     <button type="submit" class="btn btn-primary"
-	data-ng-click="paisesT.aceptar()">Aceptar</button>      
+       <button type="submit" class="btn btn-primary"
+	data-ng-click="paisesT.aceptar()">Aceptar</button>   
  </div>
   </form> 
+</div>
 </div>
 

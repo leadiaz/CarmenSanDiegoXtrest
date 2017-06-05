@@ -20,6 +20,7 @@ import ar.carmenSanDiego.model.RandomExamples
 import ar.carmenSanDiego.model.EmitirOrdenRequest
 import ar.carmenSanDiego.model.ViajeRequest
 import org.uqbar.xtrest.api.annotation.Put
+import ar.carmenSanDiego.model.CasoSimple
 
 @Controller
 class CarmenSanDiegoRestAPI {
@@ -253,7 +254,7 @@ class CarmenSanDiegoRestAPI {
             if (casoElegidoRandom == null) {
             	notFound(getErrorJson("No se inicio el juego,ejecute iniciarJuego"))
             } else {
-            	val String pistaDada = this.casoElegidoRandom.pais.precesarLugar(lugar)
+            	val String pistaDada = this.casoElegidoRandom.pais.procesarLugar(lugar)
             	 val PistaResponse pista = new PistaResponse( pistaDada)
             	ok(pista.toJson)
             }
@@ -263,12 +264,15 @@ class CarmenSanDiegoRestAPI {
         }
     }*/
     
+    
+    
      @Post("/iniciarJuego")
     def iniciarJuego() {
         response.contentType = ContentType.APPLICATION_JSON
 	        try {
 				 var random = new RandomExamples()
 				 casoElegidoRandom = random.randomIn(this.casos)
+				 paises.setearCasoALugares(new CasoSimple(casoElegidoRandom));
 				ok(casoElegidoRandom.toJson)	        	
 	        } 
 	        catch (UserException exception) {
@@ -282,8 +286,10 @@ class CarmenSanDiegoRestAPI {
         try {
 	        val EmitirOrdenRequest orden = body.fromJson(EmitirOrdenRequest)
 	        try {
-	        	 OrdenDeArrestos.add(orden)	
-				 ok()        	
+	        	 OrdenDeArrestos.add(orden)
+	        	 casoElegidoRandom.setearOrdenDeArrestoAlVillano(villanos.getVillano(orden.villanoId));
+	        	 paises.setearCasoALugares(new CasoSimple(casoElegidoRandom));	
+				 ok(casoElegidoRandom.ordenDeArrestoAlVillano.toJson)        	
 	           } 
 	        catch (UserException exception) {
 	        	badRequest(getErrorJson(exception.message))

@@ -14,8 +14,7 @@ class Pais {
 	String nombrePais
 	List <String> caracteristicasDelPais = new ArrayList<String>()
 	List <Pais> paisConexiones = new ArrayList<Pais>()
-	List<String> lugaresDeInteres= new ArrayList<String>() //limite son 3 lugares sin repetidos
-	
+	List<LugarDeInteres> lugaresDeInteres= new ArrayList<LugarDeInteres>() //limite son 3 lugares sin repetidos
 	
 	new() {
 		this.id = 0
@@ -44,22 +43,46 @@ class Pais {
 	}
 	
 	def void agregarLugarDeInteres(LugarDeInteres l){
-		if (lugaresDeInteres.contains(l)||lugaresDeInteres.size == 3 ){
+		/*if (lugaresDeInteres.contains(l)||lugaresDeInteres.size == 3 ){
 			throw new UserException("Error el lugar de interes "+ l.nombrelugar+ " ya esta en la lista" )
 		   } 
 		    else
 		        {
 		        lugaresDeInteres.add(l.nombrelugar)	
 	            }
+	       }*/
+	     if (lugaresDeInteres.contains(l)||lugaresDeInteres.size == 3 ){
+			throw new UserException("Error el lugar de interes "+ l.nombreLugar+ " ya esta en la lista" )
+		   } 
+		    else
+		        {
+		        lugaresDeInteres.add(l)	
+	            } 
 	       }
+	      
 	def sacarLugarDeInteres(LugarDeInteres l){
 		lugaresDeInteres.remove(l)
 	}
+	def setearCasoAlugares(CasoSimple caso) {
+		for( LugarDeInteres l: lugaresDeInteres){
+				l.setearCaso(caso)
+			}
+	}
 	
-	def String precesarLugar(String lugar) {
+	/*def String precesarLugar(String lugar) {
 		for(String l: lugaresDeInteres){
 			if(l== lugar ){
 				return (new LugarDeInteres(l)).devolverPista()
+			}
+		}
+	}*/
+	def procesarLugar(String lugar)
+	{
+		for(LugarDeInteres l : lugaresDeInteres)
+		{
+			if(l.nombreLugar == lugar)
+			{
+				return l.devolverPista
 			}
 		}
 	}

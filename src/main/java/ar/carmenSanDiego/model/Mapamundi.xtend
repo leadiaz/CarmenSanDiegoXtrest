@@ -27,4 +27,11 @@ class Mapamundi {
 			this.paises.filter[ it.getNombrePais.toLowerCase.contains(substring.toLowerCase) ].toList			
 		}
 	}
+	
+	def setearCasoALugares(CasoSimple cas){
+	for(Pais p : paises)
+		{
+		p.setearCasoAlugares(cas);
+		}
+	}
 }

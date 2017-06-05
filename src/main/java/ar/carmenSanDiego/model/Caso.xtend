@@ -9,11 +9,15 @@ class Caso {
 	int id
 	Pais pais
 	List<String> paisesVisitados = new ArrayList<String>();
-	List<String> paisesFallidos = new ArrayList<String>();  
+	List<String> paisesFallidos = new ArrayList<String>();
+	List<PaisSimple> planDeEscape = new ArrayList<PaisSimple>();
+	Villano ordenDeArrestoAlVillano
+	Villano responsable   
 	
-	new(int i, Pais p){
+	new(int i, Pais p, Villano vilResponsable){
 		id = i
 		pais = p
+		responsable = vilResponsable
 	}
 	def getId (){
 		id
@@ -30,4 +34,11 @@ class Caso {
 		pais = p
 	}
 	
+	def setearOrdenDeArrestoAlVillano(Villano villano) {
+		ordenDeArrestoAlVillano = villano
+	}
+	
+	def agregarPaisPlanDeEscape(PaisSimple p){
+		planDeEscape.add(p)
+	}
 }

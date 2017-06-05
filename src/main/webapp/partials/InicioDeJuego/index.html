@@ -60,12 +60,12 @@
     			<div class="btn-group btn-group-lg" role="group" >
             <div ng-repeat="lugar in casoC.caso.pais.lugaresDeInteres"> 
                <button type="button" class="btn btn-default"
-  				      	data-ng-click="casoC.devolverPista(lugar)">{{lugar}}</button>
+  				      	data-ng-click="casoC.devolverPista(lugar)">{{lugar.nombrelugar}}</button>
                </div>
 				</div>
     		</div>
     		<div class ="well well-lg">
-    			<label for="titulo">Visitando:{{casoC.lugarVisitado}}</label>
+    			<label for="titulo">Visitando:{{casoC.lugarVisitado.nombrelugar}}</label>
 				<h1 class="lead">{{casoC.pistaRequest.pista}}</h1>
 					
     		</div>
