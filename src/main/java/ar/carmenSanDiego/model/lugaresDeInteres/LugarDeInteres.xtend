@@ -1,10 +1,14 @@
 package ar.carmenSanDiego.model.lugaresDeInteres
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
  class LugarDeInteres {
 	String nombrelugar
+	new (){
+	}
 	
 	new (String n){
 		nombrelugar = n

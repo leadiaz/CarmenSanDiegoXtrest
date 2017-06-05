@@ -1,5 +1,8 @@
 package ar.carmenSanDiego.model
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class PistaResponse {
 	String pista
 	

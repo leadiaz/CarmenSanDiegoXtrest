@@ -36,7 +36,7 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	
 	this.agregarPaisConexion = function() {
 		console.log("Seleccionando " + this.selectedPaisConexion.nombre );
-		this.paisSeleccionado.paisConexiones.push(this.selectedPaisConexion.nombre);
+		this.paisSeleccionado.paisConexiones.push(this.selectedPaisConexion);
 	};
 	
 	this.agregarLugarDeInteres = function() {
