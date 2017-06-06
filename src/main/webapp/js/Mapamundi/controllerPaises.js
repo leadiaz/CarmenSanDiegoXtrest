@@ -8,8 +8,8 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 					"conexiones":["Ecuador", "Peru"], "lugares":["Embajada","Banco","Biblioteca"]},
 	               {"id":4,"nombre": "Chile","caracteristicas":["Hablan espagnol","Su moneda es el peso chileno"],
 					"conexiones":["Francia", "Peru"], "lugares":["Embajada","Club","Banco"]}];*/
-	this.lugaresDeInteresDisponibles =[{"id":1,"nombre":"Embajada" },{"id":2,"nombre":"Biblioteca"},
-	                                   {"id":3,"nombre":"Club"},{"id":4,"nombre":"Banco"}];
+	this.lugaresDeInteresDisponibles =[{"nombre":"Embajada" },{"nombre":"Biblioteca"},
+	                                   {"nombre":"Club"},{"nombre":"Banco"}];
 	console.log("Inicializando");
 	var self = this;
 	self.paises = [];
@@ -31,23 +31,23 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	
 	this.agregarCaracteristica = function() {
 		console.log("Seleccionando " + this.caracteristicaAagregar );
-		this.paisSeleccionado.caracteristicasDelPais.push(this.caracteristicaAagregar);
+		this.paisSeleccionado.caracteristicasDelPaisRest.push(this.caracteristicaAagregar);
 	};
 	
 	this.agregarPaisConexion = function() {
 		console.log("Seleccionando " + this.selectedPaisConexion.nombre );
-		this.paisSeleccionado.paisConexiones.push(this.selectedPaisConexion);
+		this.paisSeleccionado.conexiones.push(this.selectedPaisConexion);
 	};
 	
 	this.agregarLugarDeInteres = function() {
 		console.log("Seleccionando " + this.selectedLugarDeInteres.nombre );
-		this.paisSeleccionado.lugaresDeInteres.push(this.selectedLugarDeInteres.nombre);
+		this.paisSeleccionado.lugares.push(this.selectedLugarDeInteres);
 	};
 	
-	this.nuevo = function(){
+	/*this.nuevo = function(){
 		console.log("Seleccionando Nuevo Pais " );
 		this.paisSeleccionado = {"id":this.paises.length + 1,"nombrePais":"","caracteristicasDelPais":[],"paisConexiones":[], "lugaresDeInteres":[]};
-	}
+	}*/
 	
 	this.aceptar = function(){
 		/*var paisFind = this.paises.find(
@@ -83,7 +83,7 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
     
 	this.deleteCaracteristica =function(caracteristica){
 		console.log("Seleccionando para borrar " + caracteristica );
-		this.paisSeleccionado.caracteristicasDelPais =this.paisSeleccionado.caracteristicasDelPais.filter(
+		this.paisSeleccionado.caracteristicasDelPaisRest = this.paisSeleccionado.caracteristicasDelPaisRest.filter(
 			function(it) {
 				return it!=caracteristica;
 			})	
@@ -103,7 +103,7 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	
 	this.deleteConexion =function(conexion){
 		console.log("Seleccionando para borrar " + conexion );
-		this.paisSeleccionado.paisConexiones =this.paisSeleccionado.paisConexiones.filter(
+		this.paisSeleccionado.conexiones =this.paisSeleccionado.conexiones.filter(
 			function(it) {
 				return it!=conexion;
 			})	
@@ -111,7 +111,7 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	
 	this.deletelugar =function(lugarDeInteres){
 		console.log("Seleccionando para borrar " + lugarDeInteres );
-		this.paisSeleccionado.lugaresDeInteres =this.paisSeleccionado.lugaresDeInteres.filter(
+		this.paisSeleccionado.lugares =this.paisSeleccionado.lugares.filter(
 			function(it) {
 				return it!=lugarDeInteres;
 			})	

@@ -32,6 +32,10 @@ class PaisCompletoRest  {
 			}
 		}
 	}
+	
+	def actualizarPistaDadas(Pais pais) {
+	   lugares = pais.lugaresDeInteres.map[new LugarDeInteresRest (it)]
+	}
 		
 		
 	

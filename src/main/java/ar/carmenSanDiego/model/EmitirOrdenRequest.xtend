@@ -14,6 +14,9 @@ class EmitirOrdenRequest {
    	casoId = 0
    }
    
+   new (int vilId){
+   	villanoId = vilId
+   }
    new (int vilId, int casId){
    	villanoId = vilId
    	casoId = casId

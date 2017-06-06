@@ -1,6 +1,4 @@
-/*'use strict';*/
-										/*em esta lista*/						
-carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function (/*$scope*/$resource, $timeout, Villanos) {
+carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeout, Villanos) {
 	'use strict';
 	/*this.villanos = [{"id":1,"nombre": "CarmenSanDiego", "sexo":"Femenino",
 					"senhias":["pelo rojo","ojos bordo"],"hobbies":["juega al golf","mira porno"]},

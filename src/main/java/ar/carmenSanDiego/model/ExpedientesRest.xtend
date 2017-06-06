@@ -16,14 +16,17 @@ class ExpedientesRest {
 	
 	
 	def setVillano(Villano vil) {
-		
+		expediente.eliminarVillano(vil.id)
 		expediente.agregarNuevoVillano(vil)
 //		eliminarVillano(vil.id) // Elimina un eventual duplicado con mismo id
 //		villanos.add(vil)
 	}
 	
+	 def actualizarVillano(Villano vil){
+		expediente.actualizarVillano(vil)
+	}
 	def getVillano(int id) {
-		new VillanoRest(expediente.getVillano(id))
+		/*new VillanoRest(*/expediente.getVillano(id)
 //		villanos.findFirst[ it.getId == id ]
 	}
 	
@@ -31,7 +34,7 @@ class ExpedientesRest {
 		expediente.eliminarVillano(id)
 	}
 	def searchVillanos(String substring) {
-		expediente.searchVillanos(substring).map[new VillanoRest(it)]
+		expediente.searchVillanos(substring)//.map[new VillanoRest(it)]
 		
 	}
 	

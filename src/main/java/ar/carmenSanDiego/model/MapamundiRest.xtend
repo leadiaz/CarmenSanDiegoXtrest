@@ -5,6 +5,7 @@ import java.util.ArrayList
 import org.apache.commons.lang.StringUtils
 import AplicationModel.Mapamundi
 import ar.gaston.carmenSanDiego.Pais
+import ar.gaston.carmenSanDiego.Caso
 
 @Accessors
 class MapamundiRest {
@@ -16,7 +17,7 @@ class MapamundiRest {
 	}
 	
 	def getPais(int id) {
-		(mapamundi.getPais(id))
+		mapamundi.getPais(id)
 	}
 	
 	def getPaisSimple(int id){
@@ -35,12 +36,16 @@ class MapamundiRest {
 		
 		}
 	}
-	
+	def setearCasoALugares(Caso cas){
+		mapamundi.setearCasoALugares(cas)
+	}
 	
 	def eliminarPais(int id) {
 		mapamundi.eliminarPais(id)
 	}
 	def searchPaises(String substring) {
-		mapamundi.searchPaises(substring).map[new PaisRest(it)]
+		mapamundi.searchPaises(substring).map[new PaisCompletoRestConLugares(it)]
 	}
+	
+	
 }

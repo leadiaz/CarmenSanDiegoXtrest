@@ -7,7 +7,7 @@ import ar.gaston.carmenSanDiego.Villano
 
 @Accessors
 class VillanoRest {
-	int id 
+	/*int id 
 	String nombre 
 	String sexo
 	List <String> senhasParticulares = new ArrayList<String>()
@@ -23,5 +23,5 @@ class VillanoRest {
 		this.senhasParticulares = villano.señasParticulares
 		this.hobbies = villano.hobbies
 		
-	}	
+	}	*/
 }

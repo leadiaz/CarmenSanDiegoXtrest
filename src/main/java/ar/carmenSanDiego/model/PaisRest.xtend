@@ -10,7 +10,7 @@ import java.util.List
 @Accessors
 @Observable
 class PaisRest {
-	Integer id
+	int id
 	String nombre
 //	List <String> lugares = new ArrayList<String>
 			
@@ -22,6 +22,11 @@ class PaisRest {
 //    	this.lugares = pais.lugaresDeInteres.map[it.nombreLugar]
 	}
 	
+	new(PaisCompletoRestConLugares pais ){
+    	this.id = pais.id
+    	this.nombre = pais.nombre
+//    	this.lugares = pais.lugaresDeInteres.map[it.nombreLugar]
+	}
 	
 	
 }

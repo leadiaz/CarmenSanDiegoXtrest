@@ -36,27 +36,42 @@ carmenSanDiegoApp.controller('TodosLospaisesConexionesYVillanosCtrl', function (
 	this.lugarVisitado = null;
 	
 	this.viajar = function(){
-		console.log("Listo para viajar " + this.paisAViajar.nombrePais );
+		console.log("Listo para viajar " + this.paisAViajar.nombre );
 		
 		Viajar.viajar(this.paisAViajar.id,function(data) {
        	self.caso = data;
         });
 		//this.paisDondeEstoy = this.paisAViajar;
+		this.paisAViajar = null
+		this.lugarVisitado= null
 	}
 	
 	this.generearOrdenDeArresto = function(){
 		console.log("Listo para arrestar a " + self.selectedVillanoAArrestar.nombre );
 		//self.villanoAArrestar = self.selectedVillanoAArrestar;
-			OrdenDeArresto.emitirOrden(this.selectedVillanoAArrestar.id,function() {
+			OrdenDeArresto.emitirOrden(this.selectedVillanoAArrestar.id,function(data) {
 				self.villanoAArrestar = self.selectedVillanoAArrestar
+				self.caso.pais =  data
 	        });
 	}
 	
 	this.devolverPista = function(lugar){
-		console.log("pista a "+ lugar);
+		console.log("pista a "+ lugar.nombre);
+		console.log("pista a "+ lugar.pista);
 		//self.villanoAArrestar = self.selectedVillanoAArrestar;
-			Pista.retornarPista(this.lugarVisitado,function(data) {
-				self.pistaRequest = data
+		if(lugar.cuidador){
+			//if(self.caso.paisesFallidos.)
+			this.caso.paisesFallidos.push(this.caso.pais.nombre)
+			console.log("pais Fallido  "+ self.caso.pais.nombre);
+			console.log("pais Fallido  "+ self.caso.paisesFallidos);
+		}
+		if(lugar.informante ){
+			this.caso.paisesVisitados.push(this.caso.pais.nombre)
+			console.log("pais Visita  "+ self.caso.pais.nombre);
+			console.log("pais Visitado  "+ self.caso.paisesVisitados);
+		}
+			Pista.retornarPista({"lugar":lugar.nombre },function(data) {
+				self.pistaRequest = data.pista
 				console.log("pista: "+ data.pista);
 	        });
 			self.lugarVisitado= lugar
