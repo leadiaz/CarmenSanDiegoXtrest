@@ -24,7 +24,7 @@
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
         <tr data-ng-repeat="pais in paisesT.paises"> 
-            <td>{{pais.nombrePais}}</td>
+            <td>{{pais.nombre}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deletePais(pais)">
             			<span class="glyphicon glyphicon-remove"></span>
@@ -62,7 +62,7 @@
 				<input 
 					name="Nombre"
 					class="form-control" 
-					ng-model="paisesT.paisSeleccionado.nombrePais"
+					ng-model="paisesT.paisSeleccionado.nombre"
 					required="true"
 					placeholder="Ingrese nombre del pais"
 					autofocus="autofocus">

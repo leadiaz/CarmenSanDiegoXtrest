@@ -4,7 +4,7 @@ import org.uqbar.commons.utils.Observable
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.gaston.carmenSanDiego.Pais
 import java.util.List
-
+import java.util.ArrayList
 
 @Accessors
 @Observable
@@ -12,6 +12,7 @@ import java.util.List
 class PaisCompletoRest  {
 	Integer id
 	String nombre
+	
 	List <LugarDeInteresRest> lugares
 	List <PaisRest> conexiones
 	
@@ -22,6 +23,7 @@ class PaisCompletoRest  {
     	this.nombre = pais.nombrePais
    		lugares = pais.lugaresDeInteres.map[new LugarDeInteresRest (it)]
     	conexiones= pais.paisConexiones.map[new PaisRest(it)]
+    	
     }
 	
 	def procesarLugar(String lugar){

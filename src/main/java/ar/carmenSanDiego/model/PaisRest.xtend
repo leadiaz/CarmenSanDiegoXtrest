@@ -12,6 +12,7 @@ import java.util.List
 class PaisRest {
 	Integer id
 	String nombre
+	List<String> caracteristicasDelPais = new ArrayList
 //	List <String> lugares = new ArrayList<String>
 			
 	new(){	} 
@@ -19,7 +20,7 @@ class PaisRest {
     new(Pais pais ){
     	this.id = pais.id
     	this.nombre = pais.nombrePais
-//    	this.lugares = pais.lugaresDeInteres.map[it.nombreLugar]
+    	caracteristicasDelPais = pais.caracteristicasDelPais
 	}
 	
 	

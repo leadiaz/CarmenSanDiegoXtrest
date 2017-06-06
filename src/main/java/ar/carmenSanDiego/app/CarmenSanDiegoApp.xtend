@@ -49,5 +49,5 @@ class CarmenSanDiegoApp {
 		var caso1 = new CasoRest(caso)
 		var carmenRestAPI= new CarmenSanDiegoRestAPI(expediente,mapamundi)
 		carmenRestAPI.agregarCaso(caso1) 
-        XTRest.startInstance(carmenRestAPI, 9001)
+        XTRest.startInstance(carmenRestAPI, 9002)
     }}

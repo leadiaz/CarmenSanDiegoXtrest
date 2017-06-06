@@ -27,12 +27,18 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	this.seleccionarPais = function(pais) {
 		console.log("Seleccionando " + pais);
 		this.paisSeleccionado = pais;	
+		console.log("seleccionado " + this.paisSeleccionado)
 	};
 	
 	this.agregarCaracteristica = function() {
-		console.log("Seleccionando " + this.caracteristicaAagregar );
-		this.paisSeleccionado.caracteristicasDelPais.push(this.caracteristicaAagregar);
-	};
+		console.log("deberia ser un pais");
+		/*Paises.get({id:this.paisSeleccionado.id}, function(){
+			this.paisSeleccionado = this.caracteristicaAagregar
+		});*/
+		this.paisSeleccionado.caracteristicasDelPais.push(this.caracteristicaAagregar)
+		console.log(this.paisSeleccionado.caracteristicasDelPais)
+	}
+		
 	
 	this.agregarPaisConexion = function() {
 		console.log("Seleccionando " + this.selectedPaisConexion.nombre );
