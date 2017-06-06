@@ -4,7 +4,7 @@
 	 	<h1>Juego </h1>
 	</div>
 	<div class="container">
-		<p class="lead" >Estan En :{{casoC.caso.pais.nombrePais}} <i> Antes En:{{casoC.nombrePaisDondeEstuvoElVillano}}</i></p>				
+		<p class="lead" >Estan En :{{casoC.caso.pais.nombrePais}} <i> Antes En:{{casoC.caso.paisesVisitados}}</i></p>				
 	</div>
 	<form class="col-sm-4">
 			
@@ -13,7 +13,10 @@
 			<button type="submit" class="btn btn-primary"
 				data-ng-click="casoC.viajar()">Viajar
 			</button>
-			<br>			
+			<br>
+			<button type="submit" class="btn btn-primary"
+				data-ng-click="casoC.volver()">Volver
+			</button>			
 			<div class ="well well-lg">
 				
      		 <table class="table table-striped table-hover">

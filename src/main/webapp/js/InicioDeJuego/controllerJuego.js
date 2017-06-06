@@ -11,7 +11,7 @@ carmenSanDiegoApp.controller('TodosLospaisesConexionesYVillanosCtrl', function (
 	$scope.paisDondeEstoy = {"nombre": "Egipto"};*/
 	this.caso= null;
 	this.villanos = [];
-	//this.paisDondeEstoy = null;
+	this.paisDondeEstoy = null;
 	this.paisAViajar = null;
 	this.villanoAArrestar = null;
 	var self = this;
@@ -30,6 +30,7 @@ carmenSanDiegoApp.controller('TodosLospaisesConexionesYVillanosCtrl', function (
 	this.eligirPaisAViajar = function(pais){
 		console.log("Seleccionando pais para viajar " + pais.nombrePais );
 		self.paisAViajar= pais;	
+		self.paisDondeEstoy = self.caso.pais
 	}
 	this.selectedVillanoAArrestar = null;
 	this.pistaRequest= null;
@@ -42,6 +43,14 @@ carmenSanDiegoApp.controller('TodosLospaisesConexionesYVillanosCtrl', function (
        	self.caso = data;
         });
 		//this.paisDondeEstoy = this.paisAViajar;
+	}
+	
+	this.volver = function(){
+		console.log("Listo para regresar " + this.paisDondeEstoy.nombrePais );
+		//como obtengo el id del ultimo pais??
+		Viajar.viajar(this.paisDondeEstoy.id,function(data) {
+       	self.caso = data;
+        });
 	}
 	
 	this.generearOrdenDeArresto = function(){
