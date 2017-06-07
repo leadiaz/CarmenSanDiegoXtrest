@@ -46,18 +46,11 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 		this.paisSeleccionado.lugares.push(this.selectedLugarDeInteres);
 	};
 	
-	/*this.nuevo = function(){
-		console.log("Seleccionando Nuevo Pais " );
-		this.paisSeleccionado = {"id":this.paises.length + 1,"nombrePais":"","caracteristicasDelPais":[],"paisConexiones":[], "lugaresDeInteres":[]};
-	}*/
-	
 	this.aceptar = function(){
-			console.log(this.paisSeleccionado.nombre)
-			Pais.update(this.paisSeleccionado,function() {
-            //self.actualizarLista();
-				console.log(this.paisSeleccionado)
-			});	
+			console.log(this.paisSeleccionado)
+			Pais.update(this.paisSeleccionado)
 			this.paisSeleccionado = null;
+			self.actualizarLista();
 			alert("Guardado Re piola wachin");
 			}
 	

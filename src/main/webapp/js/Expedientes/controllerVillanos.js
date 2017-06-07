@@ -1,4 +1,4 @@
-carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeout, Villanos) {
+carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeout, Villanos, Villano) {
 	'use strict';
 	/*this.villanos = [{"id":1,"nombre": "CarmenSanDiego", "sexo":"Femenino",
 					"senhias":["pelo rojo","ojos bordo"],"hobbies":["juega al golf","mira porno"]},
@@ -18,9 +18,15 @@ carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeo
         });
     };
     this.actualizarLista();
-
+    
+    this.limpiarCampos=function(){
+    	this.villanoSeleccionado = null;
+    	this.senhiaAAgregar = '';
+    	this.hobbieAagregar = '';
+    }
+    
 	this.seleccionarVillano = function(villano) {
-		console.log("Seleccionando " + villano);
+		console.log(villano);
 		this.villanoSeleccionado = villano;		
 	};
 	this.agregarsenhia = function() {
@@ -49,11 +55,6 @@ carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeo
 	}
 	
 	this.deleteVillano =function(villano){
-		/*console.log("Seleccionando para borrar" + villano.nombre );
-		this.villanos =this.villanos.filter(
-			function(it) {
-				return it.id!=villano.id;
-			})*/
         var mensaje = "¿Está seguro de eliminar: '" + villano.nombre + "'?";
         bootbox.confirm(mensaje, function(confirma) {
             if (confirma) {
@@ -63,40 +64,19 @@ carmenSanDiegoApp.controller('TodosLosVillanosCtrl', function ($resource, $timeo
             }
         });
 	}
-	this.nuevo = function(){
-		console.log("Seleccionando es nuevo" );
-		this.villanoSeleccionado = {
-				"id":this.villanos.length + 20,"nombre":"","sexo":"Masculino","senhasParticulares":[],"hobbies":[]};
-	}
-		
 
 	
 	this.aceptar = function(){
-		/*var villanoFind = this.villanos.find(
-				function(it) {
-					return it.id == self.villanoSeleccionado.id;
-					});
-		if(villanoFind==  null){
-			console.log("Seleccionando es nuevo" );
-			/*this.villanos.push(this.villanoSeleccionado);
-			Villanos.save(this.villanoSeleccionado, function(data) {
-	            self.actualizarLista();
-	            self.villanoSeleccionado = null;
-	            alert("Guardado Re piola wachin")
-	        });
-		}else{*/
-			console.log("Seleccionando " );
-			Villanos.update(this.villanoSeleccionado,function() {
+			console.log(this.villanoSeleccionado );
+			Villano.update(this.villanoSeleccionado)
             self.actualizarLista();
-            self.villanoSeleccionado = null;
-            });	
-			console.log("Seleccionando ya existe" );
+			self.limpiarCampos();	
 			alert("Guardado Re piola wachin") }
 	
 	//this.nuevoVillano =  {}  
 	// AGREGAR
     this.agregarVillano = function() {
-        Villanos.save(this.nuevoVillano, function() {
+        Villano.save(this.nuevoVillano, function() {
             self.actualizarLista();
             self.nuevoVillano = null;
         });
