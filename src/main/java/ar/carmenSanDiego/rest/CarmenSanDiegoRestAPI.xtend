@@ -240,7 +240,12 @@ class CarmenSanDiegoRestAPI {
 	        	paisDominio.id = p.id
 				paisDominio.caracteristicasDelPais = p.caracteristicasDelPaisRest
 				paisDominio.nombrePais = p.nombre
-				paisDominio.paisConexiones = this.actualizarPaisConexion(p)
+				try{
+				paisDominio.paisConexiones = this.actualizarPaisConexion(p)	
+				}	
+				catch(UserException e){
+					badRequest(getErrorJson(e.message))
+				}				
 				paisDominio.lugaresDeInteres = actualizarLugaresDeInteres(p)
 				this.paises.setPais(paisDominio)
 				ok()	        	
