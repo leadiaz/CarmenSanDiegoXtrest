@@ -1,4 +1,4 @@
-carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource, $timeout, Paises) {
+carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource, $timeout, Paises,Pais) {
 	'use strict';
 	/*this.paises = [{"id":1,"nombre": "Argentina", "caracteristicas":["Toman mate", "Hablan espagnol"],
 					"conexiones":["Bolviia", "Peru"], "lugares":["Embajada","Club","Biblioteca"]},
@@ -35,8 +35,10 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	};
 	
 	this.agregarPaisConexion = function() {
-		console.log("Seleccionando " + this.selectedPaisConexion.nombre );
-		this.paisSeleccionado.conexiones.push(this.selectedPaisConexion);
+		console.log(this.selectedPaisConexion );
+		var pais = Pais.get({id: this.selectedPaisConexion.id});
+		console.log(pais)
+		this.paisSeleccionado.conexiones.push(pais);
 	};
 	
 	this.agregarLugarDeInteres = function() {
@@ -50,31 +52,18 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	}*/
 	
 	this.aceptar = function(){
-		/*var paisFind = this.paises.find(
-								function(it) {
-									return it.id == self.paisSeleccionado.id;
-					});
-		if(paisFind ==null)/*this.paisSeleccionado.id ==  null{
-			console.log("Seleccionando es nuevo" );
-			//this.paises.push(this.paisSeleccionado);
-			Paises.save(this.paisSeleccionado, function(data) {
-	            self.actualizarLista();
-	            self.paisSeleccionado = null;
-	            alert("Guardado Re piola wachin")
-	        });
-		}else{*/
-			Paises.update(this.paisSeleccionado,function() {
-            self.actualizarLista();
-            self.paisSeleccionado = null;
-            });	
-			
-			console.log("Seleccionando ya existe" );
+			console.log(this.paisSeleccionado.nombre)
+			Pais.update(this.paisSeleccionado,function() {
+            //self.actualizarLista();
+				console.log(this.paisSeleccionado)
+			});	
+			this.paisSeleccionado = null;
 			alert("Guardado Re piola wachin");
 			}
 	
     this.agregarPais = function() {
     	console.log("pais a agregar" );
-        Paises.save(this.nuevoPais, function() {
+        Pais.save(this.nuevoPais, function() {
             self.actualizarLista();
             self.nuevoPais = null;
         });
@@ -90,11 +79,11 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
 	}
 	
 	this.deletePais =function(pais){
-		console.log("Seleccionando para borrar " + pais.nombrePais );
-		var mensaje = "¿Está seguro de eliminar: '" + pais.nombrePais + "'?";
+		console.log("Seleccionando para borrar " + pais.nombre );
+		var mensaje = "¿Está seguro de eliminar: '" + pais.nombre + "'?";
         bootbox.confirm(mensaje, function(confirma) {
             if (confirma) {
-                Paises.remove(pais, function() {
+                Pais.remove(pais, function() {
                     self.actualizarLista();
                 });
             }
