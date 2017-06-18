@@ -1,6 +1,5 @@
-carmenSanDiegoApp.config(function ($stateProvider, $urlRouterProvider){
+carmenSanDiegoApp.config(function ( $stateProvider, $urlRouterProvider){
 	$urlRouterProvider.otherwise("/home");
-
 	$stateProvider
 
 	.state('home',{

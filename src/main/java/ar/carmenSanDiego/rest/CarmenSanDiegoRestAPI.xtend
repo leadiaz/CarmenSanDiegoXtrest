@@ -7,33 +7,46 @@ import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.api.annotation.Delete
 import org.uqbar.xtrest.api.annotation.Post
 import org.uqbar.xtrest.api.annotation.Body
-import ar.carmenSanDiego.model.Villano
+
 import org.uqbar.commons.model.UserException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
-import ar.carmenSanDiego.model.Pais
-import ar.carmenSanDiego.model.Mapamundi
-import ar.carmenSanDiego.model.Expedientes
-import ar.carmenSanDiego.model.Caso
-import java.util.ArrayList
 import ar.carmenSanDiego.model.PistaResponse
 import ar.carmenSanDiego.model.RandomExamples
 import ar.carmenSanDiego.model.EmitirOrdenRequest
 import ar.carmenSanDiego.model.ViajeRequest
+import ar.carmenSanDiego.model.ExpedientesRest
+import ar.carmenSanDiego.model.MapamundiRest
+import ar.carmenSanDiego.model.CasoRest
+import ar.carmenSanDiego.model.VillanoRest
+import ar.gaston.carmenSanDiego.Villano
+import ar.gaston.carmenSanDiego.Pais
+import ar.carmenSanDiego.model.PaisRest
+import ar.carmenSanDiego.model.PaisCompletoRest
 import org.uqbar.xtrest.api.annotation.Put
-import ar.carmenSanDiego.model.CasoSimple
+import ar.gaston.carmenSanDiego.Caso
+import ar.carmenSanDiego.model.PaisCompletoRestConLugares
+import java.util.List
+import java.util.ArrayList
+import ar.carmenSanDiego.model.LugarDeInteresSimpleRest
+import ar.gaston.carmenSanDiego.LugarDeInteres
+import ar.gaston.carmenSanDiego.Embajada
+import ar.gaston.carmenSanDiego.Club
+import ar.gaston.carmenSanDiego.Biblioteca
+import ar.gaston.carmenSanDiego.Banco
 
 @Controller
 class CarmenSanDiegoRestAPI {
 	 extension JSONUtils = new JSONUtils
 	 
-	 Expedientes villanos
-	 Mapamundi paises
+	 ExpedientesRest villanos
+	 MapamundiRest paises
 	 ArrayList<Caso> casos = new ArrayList
 	 Caso casoElegidoRandom // se elige a IniciarElJuego
 	 ArrayList<EmitirOrdenRequest> OrdenDeArrestos = new ArrayList
+	 CasoRest casoRestElegido;
 	
 	 
-	 new(Expedientes vil, Mapamundi p) {
+	 new(ExpedientesRest vil, MapamundiRest p) {
         this.villanos = vil
         this.paises = p
     } 
@@ -44,7 +57,7 @@ class CarmenSanDiegoRestAPI {
      * Atiende requests de la forma GET /villanos y GET /villanos?string=xxx.
      */
     @Get("/villanos")
-    def getLibros(String string) {
+    def getVillano(String string) {
         response.contentType = ContentType.APPLICATION_JSON
        	ok(this.villanos.searchVillanos(string).toJson)
     }
@@ -77,7 +90,7 @@ class CarmenSanDiegoRestAPI {
      * Atiende requests de la forma DELETE /villanos/7.
      */
     @Delete('/villanos/:id')
-    def deleteLibroById() {
+        def deleteVillanoById() {
         response.contentType = ContentType.APPLICATION_JSON
         try {
             this.villanos.eliminarVillano(Integer.valueOf(id))
@@ -97,31 +110,7 @@ class CarmenSanDiegoRestAPI {
     def createVillano(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
-	        //val Villano vil = body.fromJson(Villano)
-	        var nuevo = body.fromJson(Villano)
-	        val Villano nuevoV = new Villano(this.villanos.villanos.size +1, nuevo.nombre);
-	        try {
-				this.villanos.setVillano(nuevoV)
-				ok()	        	
-	        } 
-	        catch (UserException exception) {
-	        	badRequest(getErrorJson(exception.message))
-	        }
-        } 
-        catch (UnrecognizedPropertyException exception) {
-        	badRequest(getErrorJson("El body debe ser un Villano"))
-        }
-    }
-    
-    @Put("/villanos/:id")
-    def modificarVillano(@Body String body) {
-        response.contentType = ContentType.APPLICATION_JSON
-        try {
 	        val Villano vil = body.fromJson(Villano)
-	        if (Integer.parseInt(id) != vil.id) {
-			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
-			 }
-		
 	        try {
 				this.villanos.setVillano(vil)
 				ok()	        	
@@ -134,6 +123,30 @@ class CarmenSanDiegoRestAPI {
         	badRequest(getErrorJson("El body debe ser un Villano"))
         }
     }
+    @Put("/villanos/:id")
+    def modificarVillano(@Body String body) {
+        response.contentType = ContentType.APPLICATION_JSON
+        try {
+	        val Villano vil = body.fromJson(Villano)
+	        if (Integer.parseInt(id) != vil.id) {
+			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
+			 }
+		
+	        try {
+				this.villanos.actualizarVillano(vil)
+				ok()	        	
+	        } 
+	        catch (UserException exception) {
+	        	badRequest(getErrorJson(exception.message))
+	        }
+        
+        }
+        catch (UnrecognizedPropertyException exception) {
+        	badRequest(getErrorJson("El body debe ser un Villano"))
+        	}
+    	}
+        
+        
     
     private def getErrorJson(String message) {
         '{ "error": "' + message + '" }'
@@ -161,7 +174,7 @@ class CarmenSanDiegoRestAPI {
     def getPaisById() {
         response.contentType = ContentType.APPLICATION_JSON
         try {        	
-            var pais = this.paises.getPais(Integer.valueOf(id))
+            var pais = this.paises.getPaisSimple(Integer.valueOf(id))
             if (pais == null) {
             	notFound(getErrorJson("No existe Pais con ese id"))
             } else {
@@ -199,11 +212,9 @@ class CarmenSanDiegoRestAPI {
     def createPais(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
-	        //val Pais p = body.fromJson(Pais)
-	       	var nuevo = body.fromJson(Pais)
-	        val Pais nuevoP = new Pais(this.paises.paises.size +1, nuevo.nombrePais);
+	        val Pais p = body.fromJson(Pais)
 	        try {
-				this.paises.setPais(nuevoP)
+				this.paises.setPais(p)
 				ok()	        	
 	        } 
 	        catch (UserException exception) {
@@ -214,17 +225,29 @@ class CarmenSanDiegoRestAPI {
         	badRequest(getErrorJson("El body debe ser un Pais"))
         }
     }
-    
+
     @Put("/paises/:id")
     def updatePais(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
-	        val Pais p = body.fromJson(Pais)
+	        val PaisCompletoRestConLugares p = body.fromJson(PaisCompletoRestConLugares)
 	       	 if (Integer.parseInt(id) != p.id) {
 			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
 			 }
 	        try {
-				this.paises.setPais(p)
+	        	var paisDominio = paises.getPais(p.id)
+	        	//p.actualizarPais(paisDominio)
+	        	paisDominio.id = p.id
+				paisDominio.caracteristicasDelPais = p.caracteristicasDelPaisRest
+				paisDominio.nombrePais = p.nombre
+				try{
+				paisDominio.paisConexiones = this.actualizarPaisConexion(p)	
+				}	
+				catch(UserException e){
+					badRequest(getErrorJson(e.message))
+				}				
+				paisDominio.lugaresDeInteres = actualizarLugaresDeInteres(p)
+				this.paises.setPais(paisDominio)
 				ok()	        	
 	        } 
 	        catch (UserException exception) {
@@ -241,6 +264,33 @@ class CarmenSanDiegoRestAPI {
    	def getcaso(int id) {
 		casos.findFirst[ it.getId == id ]
 	}
+	def actualizarLugaresDeInteres(PaisCompletoRestConLugares pais) {
+		var ArrayList<LugarDeInteres> result = new ArrayList<LugarDeInteres>
+		for(LugarDeInteresSimpleRest p : pais.lugares)
+		{
+			result.add(this.chearLugarDeInteresPorNombre(p.nombre))
+		}return result 
+	}
+	
+	def chearLugarDeInteresPorNombre(String lugar) {
+	if(lugar == "Embajada"){
+			return new Embajada()
+		}else{if(lugar == "Club"){
+			     return new Club()
+				}else{ if(lugar == "Biblioteca"){
+							return new Biblioteca()
+						 }else{ return new Banco()}
+					   
+					}
+			}
+	}
+	def actualizarPaisConexion(PaisCompletoRestConLugares pais) {
+		var ArrayList<Pais> result = new ArrayList<Pais>
+		for(PaisRest p : pais.conexiones)
+		{
+			result.add(paises.getPais(p.id))
+		}return result 
+	}
 	
 	def agregarCaso(Caso cas){
 		casos.add(cas)
@@ -254,8 +304,10 @@ class CarmenSanDiegoRestAPI {
             if (casoElegidoRandom == null) {
             	notFound(getErrorJson("No se inicio el juego,ejecute iniciarJuego"))
             } else {
-            	val String pistaDada = this.casoElegidoRandom.pais.procesarLugar(lugar)
-            	 val PistaResponse pista = new PistaResponse( pistaDada)
+            	val pais = new PaisCompletoRest(paises.getPais(casoRestElegido.pais.id))
+            	val String pistaDada = pais.procesarLugar(lugar)
+            	val PistaResponse pista = new PistaResponse(pistaDada)
+            	 
             	ok(pista.toJson)
             }
         }
@@ -264,16 +316,16 @@ class CarmenSanDiegoRestAPI {
         }
     }*/
     
-    
-    
      @Post("/iniciarJuego")
     def iniciarJuego() {
         response.contentType = ContentType.APPLICATION_JSON
 	        try {
 				 var random = new RandomExamples()
 				 casoElegidoRandom = random.randomIn(this.casos)
-				 paises.setearCasoALugares(new CasoSimple(casoElegidoRandom));
-				ok(casoElegidoRandom.toJson)	        	
+				 paises.setearCasoALugares(casoElegidoRandom);
+				 var caso = new CasoRest(casoElegidoRandom)
+				 casoRestElegido = caso
+				ok(casoRestElegido.toJson)	        	
 	        } 
 	        catch (UserException exception) {
 	        	badRequest(getErrorJson(exception.message))
@@ -286,10 +338,11 @@ class CarmenSanDiegoRestAPI {
         try {
 	        val EmitirOrdenRequest orden = body.fromJson(EmitirOrdenRequest)
 	        try {
-	        	 OrdenDeArrestos.add(orden)
+	        	 OrdenDeArrestos.add(orden)	
 	        	 casoElegidoRandom.setearOrdenDeArrestoAlVillano(villanos.getVillano(orden.villanoId));
-	        	 paises.setearCasoALugares(new CasoSimple(casoElegidoRandom));	
-				 ok(casoElegidoRandom.ordenDeArrestoAlVillano.toJson)        	
+	        	 paises.setearCasoALugares(casoElegidoRandom);
+	        	 casoRestElegido.actualizarPista(paises.getPais(casoRestElegido.pais.id))
+				 ok(casoRestElegido.pais.toJson)        	
 	           } 
 	        catch (UserException exception) {
 	        	badRequest(getErrorJson(exception.message))
@@ -310,8 +363,10 @@ class CarmenSanDiegoRestAPI {
             	notFound(getErrorJson("No se inicio el juego,ejecute iniciarJuego"))
             } else {
             		var Pais p = paises.getPais(paisAViajar.getDestinoId)
-					this.casoElegidoRandom.setearPaisNuevo(p)
-					ok(casoElegidoRandom.toJson)
+            		 //var caso = new CasoRest(casoElegidoRandom)
+					casoRestElegido.setearPaisNuevo(p)
+					casoRestElegido.actualizarPista(paises.getPais(casoRestElegido.pais.id))
+					ok(casoRestElegido.toJson)
 				    }	        	
 	        } 
 	        catch (UserException exception) {

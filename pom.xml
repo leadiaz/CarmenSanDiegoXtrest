@@ -36,5 +36,10 @@
 		<artifactId>uqbar-domain</artifactId>
 		<version>3.5.1</version>
 	</dependency>
+   	<dependency>
+		<groupId>ar.gaston</groupId>
+		<artifactId>carmenSanDiego-domain-xtend</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 </project>

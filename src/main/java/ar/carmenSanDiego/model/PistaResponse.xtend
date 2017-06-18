@@ -11,7 +11,7 @@ class PistaResponse {
 	}
 	
 	new(String pis){
-		pista = pis
+		this.pista = pis
 	} 
 		 
 	/*def void searchPista(Caso caso, String lugar) {

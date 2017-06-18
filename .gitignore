@@ -3,6 +3,5 @@
 .classpath
 .project
 src/main/generated-sources
-src/main/xtend-gen/ar/carmenSanDiego
 src/test/generated-sources
-node_modules/
+src/main/webapp/node_modules

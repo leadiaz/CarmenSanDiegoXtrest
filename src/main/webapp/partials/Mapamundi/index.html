@@ -24,7 +24,7 @@
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
         <tr data-ng-repeat="pais in paisesT.paises"> 
-            <td>{{pais.nombrePais}}</td>
+            <td>{{pais.nombre}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deletePais(pais)">
             			<span class="glyphicon glyphicon-remove"></span>
@@ -47,7 +47,7 @@
 			  	<fieldset>
 				    <div class="form-group">
 			    	  	<label for="titulo">Nombre Del Pais</label>
-			      		<input data-ng-model="paisesT.nuevoPais.nombrePais" type="text" id="nombrePais" class="form-control" placeholder="Yugoslavia">
+			      		<input data-ng-model="paisesT.nuevoPais.nombrePais" type="text" id="nombrePais" class="form-control" placeholder="Ingrese el nombre del pais">
 			    	</div>
 			    	<button type="submit" class="btn btn-primary" data-ng-click="paisesT.agregarPais()">Agregar</button>
 			  	</fieldset>
@@ -62,7 +62,7 @@
 				<input 
 					name="Nombre"
 					class="form-control" 
-					ng-model="paisesT.paisSeleccionado.nombrePais"
+					ng-model="paisesT.paisSeleccionado.nombre"
 					required="true"
 					placeholder="Ingrese nombre del pais"
 					autofocus="autofocus">
@@ -77,7 +77,7 @@
          </thead>
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
-        <tr data-ng-repeat="caracteristica in paisesT.paisSeleccionado.caracteristicasDelPais"> 
+        <tr data-ng-repeat="caracteristica in paisesT.paisSeleccionado.caracteristicasDelPaisRest"> 
             <td>{{caracteristica}}</td>
              <td>
             	<button type="submit" class="btn btn-default btn-sm" ng-click="paisesT.deleteCaracteristica(caracteristica)">
@@ -113,8 +113,8 @@
          </thead>
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
-          <tr data-ng-repeat="paisConexion in paisesT.paisSeleccionado.paisConexiones">
-            <td>{{paisConexion.nombrePais}}</td>
+        <tr data-ng-repeat="paisConexion in paisesT.paisSeleccionado.conexiones">
+            <td>{{paisConexion.nombre}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deleteConexion(paisConexion)">
             			<span class="glyphicon glyphicon-remove"></span>
@@ -129,7 +129,7 @@
        		 name="mySelectorDePaises" 
        		 id="mySelect" 
        		 class="form-control"
-       		 ng-options="pais.nombrePais for pais in paisesT.paises track by pais.id"
+       		 ng-options="pais.nombre for pais in paisesT.paises track by pais.id"
      		 ng-model="paisesT.selectedPaisConexion" >
      		  <option value=""selected>Elige el pais a agregar </option></select>
     		<span class="input-group-btn">
@@ -143,14 +143,14 @@
        	<table class="table table-striped table-hover">
         <thead>	
          <tr>
-             <th>Lugares de Interes</th>
+             <th>Lugares de Inter�s</th>
              <th></th>
          </tr>
          </thead>
          <tbody>
         <!-- <tr ng-repeat="pais in paisesT.paises ">-->
-        <tr data-ng-repeat="lugar in paisesT.paisSeleccionado.lugaresDeInteres">
-            <td>{{lugar.nombrelugar}}</td>
+        <tr data-ng-repeat="lugar in paisesT.paisSeleccionado.lugares">
+            <td>{{lugar.nombre}}</td>
             <td>
             	<button type="submit" class="btn btn-default" ng-click="paisesT.deletelugar(lugar)">
             			<span class="glyphicon glyphicon-remove"></span>
@@ -165,7 +165,7 @@
        		  name="mySelectorDeLugares" 
        		  id="mySelect"
       		  class="form-control"
-      		  ng-options="lugar.nombre for lugar in paisesT.lugaresDeInteresDisponibles track by lugar.id"
+      		  ng-options="lugar.nombre for lugar in paisesT.lugaresDeInteresDisponibles "
      		  ng-model="paisesT.selectedLugarDeInteres">
        <option value=""selected>Elige el lugar a agregar </option>
        </select>
@@ -176,10 +176,9 @@
         </span>
        </div>
        <br> 
-       <button type="submit" class="btn btn-primary"
-	data-ng-click="paisesT.aceptar()">Aceptar</button>   
+     <button type="submit" class="btn btn-primary"
+	data-ng-click="paisesT.aceptar()">Aceptar</button>      
  </div>
   </form> 
 </div>
 </div>
-
