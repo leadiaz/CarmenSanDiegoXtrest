@@ -25,7 +25,7 @@ carmenSanDiegoApp.controller('TodosLospaisesCtrl', function (/*$scope*/$resource
     this.actualizarLista();
 	
 	this.seleccionarPais = function(pais) {
-		console.log("Seleccionando " + pais);
+		console.log("carac:" + pais.caracteristicasDelPaisRest);
 		this.paisSeleccionado = pais;	
 	};
 	

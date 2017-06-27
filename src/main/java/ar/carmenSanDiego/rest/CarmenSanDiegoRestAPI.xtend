@@ -157,7 +157,7 @@ class CarmenSanDiegoRestAPI {
     @Get("/paises")
     def getPais(String string) {
         response.contentType = ContentType.APPLICATION_JSON
-        var res = this.paises.searchPaises(string).map[new PaisRest(it)]
+        var res = this.paises.searchPaises(string).map[new PaisCompletoRestConLugares(it)]
        	ok(res.toJson)
     }
     
@@ -226,24 +226,14 @@ class CarmenSanDiegoRestAPI {
     def updatePais(@Body String body) {
         response.contentType = ContentType.APPLICATION_JSON
         try {
-	        val Pais p = body.fromJson(Pais)
+	        val PaisCompletoRestConLugares p = body.fromJson(PaisCompletoRestConLugares)
 	       	 if (Integer.parseInt(id) != p.id) {
 			 badRequest('{ "error" : "Id en URL distinto del cuerpo" }');
 			 }
 	        try {
-	        	
-	        	paises.actualizarPais(p)
-	        	//p.actualizarPais(paisDominio)
-//	        	paisDominio.id = p.id
-//				paisDominio.caracteristicasDelPais = p.caracteristicasDelPaisRest
-//				paisDominio.nombrePais = p.nombre
-				try{
-//				paisDominio.paisConexiones = this.actualizarPaisConexion(p)	
-				}	
-				catch(UserException e){
-					badRequest(getErrorJson(e.message))
-				}				
-				
+	        	val lugares = p.lugares.map[it.nombre]
+	        	val conexiones= p.conexiones.map[it.id]
+	        	paises.actualizarPais(p.id, p.caracteristicasDelPaisRest, lugares, conexiones)				
 				ok()	        	
 	        } 
 	        catch (UserException exception) {

@@ -14,6 +14,7 @@ class PaisCompletoRest  {
 	String nombre
 	List <LugarDeInteresRest> lugares
 	List <PaisRest> conexiones
+	List <String> caracteristicas
 	
 	new(){	} 
 	
@@ -22,6 +23,7 @@ class PaisCompletoRest  {
     	this.nombre = pais.nombrePais
    		lugares = pais.lugaresDeInteres.map[new LugarDeInteresRest (it)]
     	conexiones= pais.paisConexiones.map[new PaisRest(it)]
+    	caracteristicas = pais.caracteristicasDelPais
     }
 	
 	def procesarLugar(String lugar){
